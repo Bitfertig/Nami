@@ -1,21 +1,34 @@
 <?php
-include "res/php/config.php";
-include "res/php/functions.php";
-include "res/php/actions.php";
+include 'php/includes/config.php'; // Konfiguration
+//include 'php/includes/classes.php'; // Klassen
+include 'php/includes/functions.php'; // Funktionen
+include 'php/includes/actions.php'; // Verarbeitungen
+
+
 
 //Ausgabe
-include "res/header.php";
+include 'php/header.php';
 
-$mode = isset($_GET["mode"]) ? $_GET["mode"] : "";
+$mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 
-if( $mode == "register"){
-	include "res/php/register.php";
+
+if ( $mode == 'login' ) {
+	include 'php/content/login.php';
 }
-elseif( $mode == "login"){
-	include "res/php/login.php";
+elseif ( $mode == 'register' ) {
+	include 'php/content/register.php';
+}
+elseif ( $mode == 'passwort-vergessen' ) {
+	include 'php/content/passwort-vergessen.php';
+}
+elseif ( $mode == 'passwort-zuruecksetzen' ) {
+	include 'php/content/passwort-zuruecksetzen.php';
+}
+elseif ( $mode == 'schnittstelle' ) {
+	include 'php/content/schnittstelle.php';
 }
 
-include "res/footer.php";
 
 
+include 'php/footer.php';
 ?>

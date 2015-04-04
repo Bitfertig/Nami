@@ -2,11 +2,6 @@
 /**
  * Seitenübergreifende Formularverarbeitung
  *
- * DB:
- * https://dbadmin.hosteurope.de/phpmyadmin/index.php?db=db1116528-vegvisir
- * Benutzername: db1116528-vv
- * Passwort: <?=DB_PASSWORD?>
- *
  * SQL:
  * SELECT * FROM Tabellenname WHERE 1
  * INSERT INTO Tabellenname (`Spalte1`, `Spalte2`, ...) VALUES ("Wert1", "Wert2", ...)

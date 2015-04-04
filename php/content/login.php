@@ -20,8 +20,8 @@ if ( isset($VVAction_Login) && !$VVAction_Login ) {
 		<input type="submit" value="Login" />
 	</div>
 </form>
-<a href="<we:url id="44" />" title="Passwort vergessen?">Passwort vergessen?</a><br />
-<a href="<we:url id="self" />?action=logout" title="Logout">Logout</a>
+<a href="?mode=passwort-vergessen" title="Passwort vergessen?">Passwort vergessen?</a><br />
+<a href="?action=logout" title="Logout">Logout</a>
 <pre><?php
 print_r($_SESSION['VV']['User']);
 ?></pre>
