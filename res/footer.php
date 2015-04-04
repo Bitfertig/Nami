@@ -3,3 +3,6 @@
 echo "footer";
 
 ?>
+
+</body>
+</html>
