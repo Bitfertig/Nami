@@ -6,5 +6,5 @@
 	<script src="res/js/main.js"></script>
 </head>
 <body>
-	<img src="res/img/logo.gif" alt="Logo" />
+	<img src="res/img/logo.png" alt="Logo" />
 
