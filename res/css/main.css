@@ -1,3 +1,149 @@
+/**
+ * CSS
+ *
+ * Farben:
+ * #124773 - #224F91 - #008BAE - #5AA0CE Blau
+ * #8EAC00 Grün
+ * #F56225 Orange
+ * #D1D1D1 Grau
+ */
+
+
+* { box-sizing:border-box; }
+
 body {
-	background: #124773;
+	font:14px/120% Arial, sans-serif;
 }
+
+a {
+	color:#124773;
+	text-decoration:none;
+}
+a:hover,
+a:focus,
+a:active {
+	color:#5AA0CE;
+}
+
+input[type=text],
+input[type=mail],
+input[type=password] {
+	border:1px solid #124773;
+	padding:9px 10px;
+	font:15px/20px Arial, sans-serif;
+	color:#124773;
+}
+input[type=submit] {
+	border:0 none;
+	padding:9px 18px;
+	font:15px/20px Arial, sans-serif;
+	background-color:#124773;
+	color:#fff;
+}
+
+
+
+/*******************************************************************
+ * .user-on
+ */
+
+.user-on body {
+	color:#333;
+	background-color:#fff;
+}
+.user-on .sidebar {
+	position:fixed;
+	left:0;
+	top:0;
+	bottom:0;
+	width:300px;
+	color:#fff;
+	background-color:#124773;
+}
+.user-on .sidebar a {
+	color:#5AA0CE;
+	text-decoration:none;
+}
+.user-on .sidebar a:hover,
+.user-on .sidebar a:focus,
+.user-on .sidebar a:active {
+	color:#fff;
+}
+.user-on nav {
+	margin:38px 0 18px 0;
+}
+.user-on nav ul,
+.user-on nav li {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+.user-on nav li a {
+	display:block;
+	width:100%;
+	padding:9px 18px;
+	line-height:20px;
+	border-bottom:1px solid #5AA0CE;
+}
+.user-on nav li:first-child a {
+	border-top:1px solid #5AA0CE;
+}
+.user-on nav li a:hover {
+	background-color:#5AA0CE;
+}
+.user-on .content {
+	padding-left:300px;
+}
+
+
+
+/*******************************************************************
+ * .user-off
+ */
+ .user-off:hover .content {border:1px solid red;} /* Zum testen */
+.user-off body {
+	color:#fff;
+	background-color:#124773;
+}
+.user-off #logolink {
+	display:block;
+	text-align:center;
+}
+.user-off .content {
+	margin:0 auto;
+	width:400px;
+}
+
+.user-off a {
+	color:#5AA0CE;
+	text-decoration:none;
+}
+.user-off a:hover,
+.user-off a:focus,
+.user-off a:active {
+	color:#fff;
+}
+
+.user-off input[type=text],
+.user-off input[type=mail],
+.user-off input[type=password] {
+	border:1px solid #5AA0CE;
+	padding:9px 10px;
+	font:15px/20px Arial, sans-serif;
+	color:#5AA0CE;
+}
+.user-off input[type=submit] {
+	border:0 none;
+	padding:9px 18px;
+	font:15px/20px Arial, sans-serif;
+	background-color:#5AA0CE;
+	color:#fff;
+}
+
+
+
+
+
+
+
+

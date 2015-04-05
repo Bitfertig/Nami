@@ -1,3 +1,4 @@
+
 <?php
 /*if ( $MESSAGE == 'login-failed' ) {
 	echo 'Login fehlgeschlagen.';
@@ -22,5 +23,3 @@
 </form>
 <a href="?mode=lostpassword" title="Passwort vergessen?">Passwort vergessen?</a><br />
 <a href="?mode=register" title="Registrieren">Jetzt Registrieren</a> oder <a href="?mode=demo" title="Demo">Demo</a><br />
-
-

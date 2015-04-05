@@ -6,8 +6,7 @@ include 'php/includes/actions.php'; // Verarbeitungen
 
 
 
-//Ausgabe
-include 'php/header.php';
+
 
 
 $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
@@ -16,10 +15,12 @@ $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 // Nicht eingeloggt:
 if ( !$_SESSION['User'] ) {
 
-	if ( $mode == 'login' || $mode == '' ) {
-		include 'php/content/login.php';
-	}
-	elseif ( $mode == 'register' ) {
+	//Ausgabe
+	include 'php/header.php';
+	echo '<div class="content">';
+	echo '<a href="/" title="Zur Startseite" id="logolink"><img src="res/img/logo.png" alt="Logo" /></a>';
+
+	if ( $mode == 'register' ) {
 		include 'php/content/register.php';
 	}
 	elseif ( $mode == 'lostpassword' ) {
@@ -28,21 +29,38 @@ if ( !$_SESSION['User'] ) {
 	elseif ( $mode == 'resetpassword_doi' ) {
 		include 'php/content/passwort-zuruecksetzen.php';
 	}
+	else {
+		include 'php/content/login.php';
+	}
 
+	echo '</div>';
+	include 'php/footer.php';
 }
 // Wenn eingeloggt:
 else {
 
+	//Ausgabe
+	include 'php/header.php';
 	include 'php/sidebar.php';
+	echo '<div class="content">';
 
 	if ( $mode == 'start' || $mode == '' ) {
 		include 'php/content/start.php';
 	}
+	elseif ( $mode == 'userconfig' ) {
+		include 'php/content/userconfig.php';
+	}
 	elseif ( $mode == 'schnittstelle' ) {
 		include 'php/content/schnittstelle.php';
 	}
+	else {
+		include 'php/content/404.php';
+	}
+
+	echo '</div>';
+	include 'php/footer.php';
 }
 
 
-include 'php/footer.php';
+
 ?>
