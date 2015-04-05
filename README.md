@@ -1,3 +1,3 @@
 # Vegvisir Nami
 
-[Bugtracker](http://mantis.vegvisir.de)
+![Mantis Bug Tracker](http://mantis.vegvisir.de/images/favicon.ico) [Mantis Bug Tracker](http://mantis.vegvisir.de)
