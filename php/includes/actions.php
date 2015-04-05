@@ -9,61 +9,69 @@
  * DELETE FROM Tabellenname WHERE 1
  */
 
-// MySQLi-Verbindung: $VV_DB = $GLOBALS['VV_DB']
+// MySQLi-Verbindung: $mysqli = $GLOBALS['mysqli']
 
-// Session Variable erstellen
-if ( !isset($_SESSION['VV']) ) {
-	$_SESSION['VV'] = array();
+
+
+// Session starten
+session_start();
+if ( !isset($_SESSION['User']) ) {
+	$_SESSION['User'] = false;
 }
 
+
+
 // Action-Variable setzen
-$_ACTION = isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GET['action'] : '');
+$ACTION = isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GET['action'] : '');
 
 
 
 /**
  * Neue Registrierung
  */
-if ( $_ACTION == 'register' ) {
-	if ( !empty($_POST['Benutzername']) && !empty($_POST['Email']) && filter_var($_POST['Email'], FILTER_VALIDATE_EMAIL) ) { // Überprüfe Eingaben
+if ( $ACTION == 'register' ) {
+	if ( !empty($_POST['username']) && !empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ) { // Überprüfe Eingaben
 		
 		// Original Variablen:
-		$nickname = $_POST['Benutzername'];
-		$email = $_POST['Email'];
+		$username = $_POST['username'];
+		$email = $_POST['email'];
 		$password = generatePassword();
 		$password_hashed = md5($password.'v3gv1s1r');
-		$code = generatePassword(9);
-		$register = time();
+		$registercode = generatePassword(9);
+		$registertime = time();
 		$ip = $_SERVER['REMOTE_ADDR'];
 		
 		// SQL Variablen:
-		$sql_nickname = $GLOBALS['VV_DB']->real_escape_string( $nickname );
-		$sql_email = $GLOBALS['VV_DB']->real_escape_string( $email );
-		$sql_password_hashed = $GLOBALS['VV_DB']->real_escape_string( $password_hashed );
-		$sql_code = $GLOBALS['VV_DB']->real_escape_string( $code );
-		$sql_register = $register;
+		$sql_username = $mysqli->real_escape_string( $username );
+		$sql_email = $mysqli->real_escape_string( $email );
+		$sql_password_hashed = $mysqli->real_escape_string( $password_hashed );
+		$sql_registercode = $mysqli->real_escape_string( $registercode );
+		$sql_registertime = $registertime;
 		$sql_ip = $ip;
 		
 		// Nickname und Email müssen neu sein:
-		$sql = 'SELECT ID FROM vvUsers WHERE `Nickname` LIKE '.$sql_nickname.' OR `Email` LIKE '.$sql_email.'"';
-		$result = $GLOBALS['VV_DB']->query($sql);
-		$affected_rows = $GLOBALS['VV_DB']->affected_rows; // Anzahl veränderter Datensätze
+		// .... TODO .... mach es prepared statements....
+		$sql = 'SELECT id FROM users WHERE `username` LIKE '.$sql_username.' OR `email` LIKE '.$sql_email.'"';
+		$result = $mysqli->query($sql);
+		$affected_rows = $mysqli->affected_rows; // Anzahl veränderter Datensätze
 		if ( $affected_rows < 1 ) {
 		
 			// DB-Speicherung:
-			$sql = 'INSERT INTO vvUsers (`Nickname`, `Password`, `Email`, `Register`, `Code`, `IP`) VALUES ("'.$sql_nickname.'", "'.$sql_password_hashed.'", "'.$sql_email.'", '.$sql_register.', "'.$sql_code.'", "'.$sql_ip.'")';
-			$GLOBALS['VV_DB']->query($sql);
-			$userid = $GLOBALS['VV_DB']->insert_id; // ID des _neuen_ DB-Eintrags
+			// TODO .... mach es mit prepared statements....
+			$sql = 'INSERT INTO users (`username`, `password`, `email`, `registertime`, `registercode`, `ip`) VALUES ("'.$sql_username.'", "'.$sql_password_hashed.'", "'.$sql_email.'", '.$sql_registertime.', "'.$sql_registercode.'", "'.$sql_ip.'")';
+			$mysqli->query($sql);
+			$userid = $mysqli->insert_id; // ID des _neuen_ DB-Eintrags
 			
 			// Bestätigungs-Email versenden:
-			$nachricht = "Willkommen, ".$nickname."!\n"
+			$nachricht = "Willkommen, ".$username."!\n"
 				."Ihr Passwort lautet: ".$password."\n\n"
 				."Aktivierungslink:\n"
-				."http://".$_SERVER["SERVER_NAME"].id_to_path(39)."?action=register_doi&userid=".$userid."&code=".$code;
-			$mail = mail($_POST['Email'], 'Ihre Registrierung', $nachricht);
+				."http://".$_SERVER["SERVER_NAME"]."?action=register_doi&userid=".$userid."&code=".$registercode;
+			$mail = mail($email, 'Ihre Registrierung', $nachricht);
 		}
 	}
-	$VVAction_Register = false;
+	$MESSAGE = 'register-failed';
+
 }
 
 
@@ -72,28 +80,28 @@ if ( $_ACTION == 'register' ) {
  * Doubleoptin-Registrierung (doi)
  * Bei Aufruf des Bestätigungslink in der Email, wird der Benutzer aktiviert.
  */
-if ( $_ACTION == 'register_doi' ) {
+if ( $ACTION == 'register_doi' ) {
 	if ( !empty($_GET['code']) && !empty($_GET['userid']) ) {
 		
 		// Original Variablen:
 		$userid = (int) $_GET['userid'];
-		$code = $_GET['code'];
+		$registercode = $_GET['code'];
 		
 		// SQL Variablen:
 		$sql_userid = (int) $userid;
-		$sql_code = $GLOBALS['VV_DB']->real_escape_string( $code );
+		$sql_registercode = $mysqli->real_escape_string( $registercode );
 		
 		// Benutzer freischalten/aktivieren:
-		$sql = 'UPDATE vvUsers SET `Status`=1 WHERE ID='.$sql_userid.' AND Code="'.$sql_code.'"';
-		$GLOBALS['VV_DB']->query($sql);
+		$sql = 'UPDATE users SET `status`=1 WHERE id='.$sql_userid.' AND registercode="'.$sql_registercode.'"';
+		$mysqli->query($sql);
 		
 		// Variable für die Ausgabe:
-		$affected_rows = $GLOBALS['VV_DB']->affected_rows; // Anzahl veränderter Datensätze
+		$affected_rows = $mysqli->affected_rows; // Anzahl veränderter Datensätze
 		if ( $affected_rows > 0 ) {
 			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
 		}
 	}
-	$VVAction_Registerdoi = false;
+	$MESSAGE = 'registerdoi-failed';
 }
 
 
@@ -101,22 +109,22 @@ if ( $_ACTION == 'register_doi' ) {
 /**
  * Login (Authentifizierung)
  */
-if ( $_ACTION == 'login' ) {
-	if ( !empty($_POST['Benutzername']) && !empty($_POST['Benutzerpasswort']) ) {
+if ( $ACTION == 'login' ) {
+	if ( !empty($_POST['username']) && !empty($_POST['password']) ) {
 		
 		// Original Variablen:
-		$nickname = $_POST['Benutzername'];
-		$password = $_POST['Benutzerpasswort'];
+		$username = $_POST['username'];
+		$password = $_POST['password'];
 		$password_hashed = md5($password.'v3gv1s1r');
 		
 		// SQL-Prepared Variablen:
-		$sqlp_nickname = $nickname;
+		$sqlp_username = $username;
 		$sqlp_password = $password_hashed;
 		
 		// DB-Benutzer selektieren/auswählen:
-		$stmt = $GLOBALS['VV_DB']->prepare("SELECT ID, Status FROM vvUsers WHERE Nickname=? AND Password=?");
+		$stmt = $mysqli->prepare("SELECT id, status FROM users WHERE username=? AND password=?");
 		if ( $stmt ) {
-			$stmt->bind_param('ss', $nickname, $password_hashed); // bind parameters for markers
+			$stmt->bind_param('ss', $username, $password_hashed); // bind parameters for markers
 			$stmt->execute(); // execute query
 			$stmt->bind_result($userid, $status); // bind result variables
 			$stmt->fetch(); // fetch value
@@ -127,16 +135,16 @@ if ( $_ACTION == 'login' ) {
 				
 				// Status noch 0 => Status auf 1 setzen
 				if ( $status == 0 ) {
-					$sql = 'UPDATE vvUsers SET `Status`=1 WHERE ID='.$userid;
-					$GLOBALS['VV_DB']->query($sql);
+					$sql = 'UPDATE users SET `status`=1 WHERE id='.$userid;
+					$mysqli->query($sql);
 				}
 				
-				$_SESSION['VV']['User'] = new VVUser( $userid ); // Benutzerdaten in Session speichern
+				$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
 				header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
 			}
 		}
 	}
-	$VVAction_Login = false; // Login fehlgeschlagen
+	$MESSAGE = 'login-failed'; // Login fehlgeschlagen
 }
 
 
@@ -144,9 +152,9 @@ if ( $_ACTION == 'login' ) {
 /**
  * Logout
  */
-if ( $_ACTION == 'logout' ) {
+if ( $ACTION == 'logout' ) {
 	
-	$_SESSION['VV']['User'] = array(); // Benutzerdaten in Session speichern
+	$_SESSION['User'] = false; // Benutzerdaten in Session speichern
 	header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
 	
 }
@@ -156,38 +164,38 @@ if ( $_ACTION == 'logout' ) {
 /**
  * "Passwort vergessen?"
  */
-if ( $_ACTION == 'lostpassword' ) {
-	if ( !empty( $_POST['Email'] ) ) {
+if ( $ACTION == 'lostpassword' ) {
+	if ( !empty( $_POST['email'] ) ) {
 		
 		// Original Variablen:
-		$email = $_POST['Email'];
+		$email = $_POST['email'];
 		$resetcode = generatePassword(9);
 		
 		// SQL Variablen:
-		$sql_email = $GLOBALS['VV_DB']->real_escape_string( $email );
-		$sql_resetcode = $GLOBALS['VV_DB']->real_escape_string( $resetcode );
+		$sql_email = $mysqli->real_escape_string( $email );
+		$sql_resetcode = $mysqli->real_escape_string( $resetcode );
 		
 		// DB-Abfrage:
-		$sql = 'SELECT ID, Nickname FROM vvUsers WHERE `Email`="'.$sql_email.'"';
-		$result = $GLOBALS['VV_DB']->query($sql);
+		$sql = 'SELECT id, username FROM users WHERE `email`="'.$sql_email.'"';
+		$result = $mysqli->query($sql);
 		if ( $row = $result->fetch_object() ) { // Eintrag existiert:
-			$userid = $row->ID;
-			$nickname = $row->Nickname;
+			$userid = $row->id;
+			$username = $row->username;
 			
 			// ResetCode speichern:
-			$sql = 'UPDATE vvUsers SET `ResetCode`="'.$sql_resetcode.'" WHERE ID='.$userid;
-			$GLOBALS['VV_DB']->query($sql);
+			$sql = 'UPDATE users SET `resetcode`="'.$sql_resetcode.'" WHERE id='.$userid;
+			$mysqli->query($sql);
 			
 			// Passwortreset-Email versenden:
-			$nachricht = "Guten Tag ".$nickname."!\n"
+			$nachricht = "Guten Tag ".$username."!\n"
 				."Bitte klicken Sie auf diesen Link, dann können Sie Ihr Passwort zurücksetzen: \n\n"
-				."http://".$_SERVER["SERVER_NAME"].id_to_path(45)."?action=resetpassword_doi&userid=".$userid."&resetcode=".$resetcode;
+				."http://".$_SERVER["SERVER_NAME"]."?action=resetpassword_doi&userid=".$userid."&resetcode=".$resetcode;
 			// Weitere Vorlage und Dokument erstellen
-			$mail = mail($_POST['Email'], 'Passwort zurücksetzen', $nachricht);
+			$mail = mail($email, 'Passwort zurücksetzen', $nachricht);
 			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
 		}
 	}
-	$VVAction_Lostpassword = false;
+	$MESSAGE = 'lostpassword-failed';
 }
 
 
@@ -195,30 +203,30 @@ if ( $_ACTION == 'lostpassword' ) {
 /**
  * Passwort zurücksetzen
  */
-if ( $_ACTION == 'resetpassword' ) {
-	if ( !empty($_POST['PasswordNew']) && !empty($_POST['userid']) && !empty($_POST['resetcode']) ) {
+if ( $ACTION == 'resetpassword' ) {
+	if ( !empty($_POST['newpassword']) && !empty($_POST['userid']) && !empty($_POST['resetcode']) ) {
 		
 		// Original Variablen:
 		$userid = (int) $_POST['userid'];
 		$resetcode = $_POST['resetcode'];
-		$password = $_POST['PasswordNew'];
-		$password_hashed = md5($password.'v3gv1s1r');
+		$newpassword = $_POST['newpassword'];
+		$newpassword_hashed = md5($newpassword.'v3gv1s1r');
 		
 		// SQL-Prepared Variablen:
 		$sql_userid = (int) $userid;
-		$sql_password_hashed = $GLOBALS['VV_DB']->real_escape_string( $password_hashed );
-		$sql_resetcode = $GLOBALS['VV_DB']->real_escape_string( $resetcode );
+		$sql_newpassword_hashed = $mysqli->real_escape_string( $newpassword_hashed );
+		$sql_resetcode = $mysqli->real_escape_string( $resetcode );
 		
 		// DB-Benutzer selektieren/auswählen:
-		$sql = 'UPDATE vvUsers SET `Password`="'.$sql_password_hashed.'", `ResetCode`="" WHERE `ID`='.$sql_userid.' AND `ResetCode`="'.$sql_resetcode.'"';
-		$GLOBALS['VV_DB']->query($sql);
-		$affected_rows = $GLOBALS['VV_DB']->affected_rows; // Anzahl veränderter Datensätze
+		$sql = 'UPDATE users SET `password`="'.$sql_newpassword_hashed.'", `resetcode`="" WHERE `id`='.$sql_userid.' AND `resetcode`="'.$sql_resetcode.'"';
+		$mysqli->query($sql);
+		$affected_rows = $mysqli->affected_rows; // Anzahl veränderter Datensätze
 		if ( $affected_rows > 0 ) {
-			$_SESSION['VV']['User'] = new VVUser( $userid ); // Benutzerdaten in Session speichern
+			$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
 			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
 		}
 	}
-	$VVAction_Resetpassword = false;
+	$MESSAGE = 'resetpassword-failed';
 }
 
 ?>

@@ -32,4 +32,10 @@
 		return $result;
 	}
 
+	// Request Variable zurückliefern (nützlich damit kein isset() benötigt wird)
+	function req($name, $type='POST') {
+		$gl = ($type=='POST') ? $_POST : $_GET;
+		return isset($gl[$name]) ? $gl[$name] : '';
+	}
+
 ?>

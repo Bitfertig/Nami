@@ -1,7 +1,7 @@
 <?php
-if ( isset($VVAction_Login) && !$VVAction_Login ) {
+/*if ( $MESSAGE == 'login-failed' ) {
 	echo 'Login fehlgeschlagen.';
-}
+}*/
 ?>
 
 <?php /* Anmelden */ ?>
@@ -9,19 +9,18 @@ if ( isset($VVAction_Login) && !$VVAction_Login ) {
 <form name="login" method="post" action="">
 	<input type="hidden" name="action" value="login" />
 	<div>
-		<label for="">Benutzername</label><br />
-		<input type="text" name="Benutzername" value="" required />
+		<label for="username">Benutzername</label><br />
+		<input type="text" name="username" id="username" value="" required />
 	</div><br />
 	<div>
-		<label for="">Passwort</label><br />
-		<input type="password" name="Benutzerpasswort" value="" required />
+		<label for="password">Passwort</label><br />
+		<input type="password" name="password" id="password" value="" required />
 	</div><br />
 	<div>
 		<input type="submit" value="Login" />
 	</div>
 </form>
-<a href="?mode=passwort-vergessen" title="Passwort vergessen?">Passwort vergessen?</a><br />
-<a href="?action=logout" title="Logout">Logout</a>
-<pre><?php
-print_r($_SESSION['VV']['User']);
-?></pre>
+<a href="?mode=lostpassword" title="Passwort vergessen?">Passwort vergessen?</a><br />
+<a href="?mode=register" title="Registrieren">Jetzt Registrieren</a> oder <a href="?mode=demo" title="Demo">Demo</a><br />
+
+

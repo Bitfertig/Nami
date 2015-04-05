@@ -6,8 +6,8 @@
 <form name="lostpassword" method="post" action="">
 	<input type="hidden" name="action" value="lostpassword" />
 	<div>
-		<label for="">E-Mail</label><br />
-		<input type="text" name="Email" value="" required />
+		<label for="email">E-Mail</label><br />
+		<input type="text" name="email" id="email" value="" required />
 	</div><br />
 	<div>
 		<input type="submit" value="Senden" />

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * VVUser
+ * User
  * Instanziiert einen Benutzer
  *
  * @author Aurelian Hermand - ah - aurel@hermand.de
+ * @version 1.1.0 - 04.04.2015 - ah - Generischer strukturiert
  * @version 1.0.0 - 28.03.2015 - ah - Initiale Version
  */
-class VVUser {
+class User {
 	
 	private $data;
 	
@@ -16,10 +17,10 @@ class VVUser {
 	 * @param ID Benutzer-ID
 	 * @return $this
 	 */
-	function VVUser($id) {
+	function User($id) {
 		
-		$mysqli = $GLOBALS['VV_DB'];
-		$stmt = $mysqli->prepare("SELECT * FROM vvUsers WHERE ID=?");
+		$mysqli = $GLOBALS['mysqli'];
+		$stmt = $mysqli->prepare("SELECT * FROM users WHERE id=?");
 		if ( $stmt ) {
 			$stmt->bind_param('i', $id); // Fragezeichen (?) ersetzen
 			$stmt->execute(); // SQL-Query ausführen
@@ -47,12 +48,14 @@ class VVUser {
 	}
 	function get($key) { return $this->data[$key]; }
 	function set($key, $val) { $this->data[$key] = $val; }
+	function save() {/* TODO */}
 }
 /*
-$VVUser = new VVUser(1);
-echo $VVUser->get('Nickname');
-$VVUser->set('Birthday', 3333);
-echo $VVUser->get('Birthday');
+$User = new User(1);
+echo $User->get('username');
+$User->set('birthday', 3333);
+echo $User->get('birthday');
+$User->save();
 */
 
 

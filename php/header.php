@@ -8,8 +8,3 @@
 <body>
 	<img src="res/img/logo.gif" alt="Logo" />
 
-<?php
-
-echo "header";
-
-?>
