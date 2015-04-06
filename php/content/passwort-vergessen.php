@@ -6,10 +6,10 @@
 <form name="lostpassword" method="post" action="">
 	<input type="hidden" name="action" value="lostpassword" />
 	<div>
-		<label for="email">E-Mail</label><br />
-		<input type="text" name="email" id="email" value="" required />
+		<input type="text" name="email" id="email" value="" placeholder="E-Mail" required />
 	</div><br />
-	<div>
+	<div class="button">
 		<input type="submit" value="Senden" />
-	</div>
+	</div><br />
+	<a href="?mode=login">Login</a>
 </form>

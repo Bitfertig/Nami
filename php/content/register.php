@@ -3,14 +3,12 @@
 <form name="register" method="post" action="">
 	<input type="hidden" name="action" value="register" />
 	<div>
-		<label for="username">Benutzername</label><br />
-		<input type="text" name="username" id="username" value="" required />
+		<input type="text" name="username" id="username" value="" placeholder="Benutzername" required />
 	</div><br />
 	<div>
-		<label for="email">E-Mail</label><br />
-		<input type="text" name="email" id="email" value="" required />
+		<input type="text" name="email" id="email" value="" placeholder="E-Mail" required />
 	</div><br />
-	<div>
+	<div class="button">
 		<input type="submit" value="Registrieren" />
 	</div>
 </form>

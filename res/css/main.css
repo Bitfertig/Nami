@@ -41,7 +41,9 @@ input[type=submit] {
 	color:#fff;
 }
 
-
+.human{
+	display: none;
+}
 
 /*******************************************************************
  * .user-on
@@ -111,7 +113,7 @@ input[type=submit] {
 }
 .user-off .content {
 	margin:0 auto;
-	width:400px;
+	width:300px;
 }
 
 .user-off a {
@@ -124,13 +126,16 @@ input[type=submit] {
 	color:#fff;
 }
 
+
 .user-off input[type=text],
 .user-off input[type=mail],
 .user-off input[type=password] {
-	border:1px solid #5AA0CE;
+	border:1px solid #FFF;
 	padding:9px 10px;
 	font:15px/20px Arial, sans-serif;
-	color:#5AA0CE;
+	color:#FFF;
+	width:100%;
+	background-color: transparent;
 }
 .user-off input[type=submit] {
 	border:0 none;
@@ -140,8 +145,20 @@ input[type=submit] {
 	color:#fff;
 }
 
-
-
+.user-off .table{
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+.user-off .table-cell{
+	display: table-cell;
+}
+.user-off .table-cell.right{
+	text-align:right;
+}
+.user-off .button{
+	text-align:right;
+}
 
 
 

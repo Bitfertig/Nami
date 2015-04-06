@@ -10,16 +10,29 @@
 <form name="login" method="post" action="">
 	<input type="hidden" name="action" value="login" />
 	<div>
-		<label for="username">Benutzername</label><br />
-		<input type="text" name="username" id="username" value="" required />
+		<input type="text" name="username" id="username" value="" placeholder="Benutzername" required />
 	</div><br />
 	<div>
-		<label for="password">Passwort</label><br />
-		<input type="password" name="password" id="password" value="" required />
+		<input type="password" name="password" id="password" value="" placeholder="Passwort" required />
 	</div><br />
-	<div>
-		<input type="submit" value="Login" />
-	</div>
+	<div class="table">
+		<div class="table-cell">
+			<a href="?mode=lostpassword" title="Passwort vergessen?">Passwort vergessen?</a>
+		</div>
+		<div class="table-cell right">
+			<input type="submit" value="Login" />
+		</div>
+	</div><br />
 </form>
-<a href="?mode=lostpassword" title="Passwort vergessen?">Passwort vergessen?</a><br />
-<a href="?mode=register" title="Registrieren">Jetzt Registrieren</a> oder <a href="?mode=demo" title="Demo">Demo</a><br />
+<form name="demologin" method="post" action="">
+	<input type="hidden" name="action" value="demologin" />
+	<input type="text" name="human" class="human" value="" />
+	<input type="hidden" name="ip" id="ip" value="" />
+	<input type="submit" value="Demologin" />
+</form>
+<script>
+	document.getElementById("ip").value="<?php echo $_SERVER["REMOTE_ADDR"] ?>";
+</script>
+
+<a href="?mode=register" title="Registrieren">Jetzt Registrieren</a><br />
+<a href="?mode=ad" title="Werbung">Werbung</a><br />
