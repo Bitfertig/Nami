@@ -27,6 +27,46 @@ $ACTION = isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ?
 
 
 /**
+ * Demo-Zugang (Registrierung + Login)
+ */
+if ( isset($_POST['action']) && $_POST['action'] == 'demologin' ) {
+	if ( isset($_POST['human']) && $_POST['human'] == ''
+		&& isset($_POST['ip']) && $_POST['ip'] == $_SERVER['REMOTE_ADDR'] ) {
+
+		// Original Variablen:
+		$username = 'Demobenutzer';
+		$email = 'user@demo';
+		$password = generatePassword();
+		$password_hashed = md5($password.'v3gv1s1r');
+		$registercode = generatePassword(9);
+		$registertime = time();
+		$ip = $_SERVER['REMOTE_ADDR'];
+		
+		// SQL Variablen:
+		$sql_username = $mysqli->real_escape_string( $username );
+		$sql_email = $mysqli->real_escape_string( $email );
+		$sql_password_hashed = $mysqli->real_escape_string( $password_hashed );
+		$sql_registercode = $mysqli->real_escape_string( $registercode );
+		$sql_registertime = $registertime;
+		$sql_ip = $ip;
+		
+		// 
+		// DB-Speicherung:
+		// TODO .... mach es mit prepared statements....
+		$sql = 'INSERT INTO users (`status`, `username`, `password`, `email`, `registertime`, `registercode`, `ip`) VALUES ("-1", "'.$sql_username.'", "'.$sql_password_hashed.'", "'.$sql_email.'", '.$sql_registertime.', "'.$sql_registercode.'", "'.$sql_ip.'")';
+		$mysqli->query($sql);
+		$userid = $mysqli->insert_id; // ID des _neuen_ DB-Eintrags
+
+		// Login...
+		$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
+		header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
+
+	}
+}
+
+
+
+/**
  * Neue Registrierung
  */
 if ( $ACTION == 'register' ) {

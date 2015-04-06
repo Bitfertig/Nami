@@ -9,7 +9,7 @@ define('DBPASS', 'root');
 
 
 // backup & import
-$dir = dirname(file).'/backups'; // directory files
+$dir = dirname(__FILE__).'/backups'; // directory files
 $name = 'backup'; // name sql backup
 
 
@@ -27,7 +27,7 @@ if ( $MODE == '' ) {
 		<style>
 			* { box-sizing:border-box; }
 			body { font:12px/120% Arial, sans-serif; }
-			.container { max-width:900px; margin:0 auto; padding:015px; }
+			.container { max-width:900px; margin:0 auto; padding:15px; }
 			.row { display:table; table-layout:fixed; width:100%; }
 			.col { display:table-cell; }
 		</style>
@@ -80,7 +80,7 @@ elseif( $MODE == 'backup' ) {
 // Import
 elseif ( $MODE == 'import' ) {
 	$name = isset($_GET['filename']) ? $_GET['filename'] : $name;
-	$file = dirname(FILE).'/backups/'.$name.'.sql'; // sql data file
+	$file = $dir.'/'.$name.'.sql'; // sql data file
 	$args = file_get_contents($file); // get contents
 	print_r( mysqli_import_sql( $args, DBHOST, DBUSER, DBPASS, DBNAME) ); // execute import
 }
