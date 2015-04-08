@@ -102,7 +102,7 @@ input[type=submit] {
 /*******************************************************************
  * .user-off
  */
- .user-off:hover .content {border:1px solid red;} /* Zum testen */
+ 
 .user-off body {
 	color:#fff;
 	background-color:#124773;
@@ -151,7 +151,7 @@ input[type=submit] {
 	width: 100%;
 }
 .user-off .table-cell{
-	display: table-cell;
+	display:table-cell;
 }
 .user-off .table-cell.right{
 	text-align:right;
@@ -160,7 +160,29 @@ input[type=submit] {
 	text-align:right;
 }
 
-
-
-
+.user-off .signup{
+	border:0 none;
+	padding:10px 18px;
+	font:15px/20px Arial, sans-serif;
+	background-color:#FFF;
+	width:100%;
+	display:inline-block;
+	text-align: center;
+	margin-top: 10px;
+}
+.user-off .signup:hover,
+.user-off .signup:focus,
+.user-off .signup:active {
+	color: #5AA0CE;
+}
+.user-off .demo{
+	margin-top: 50px;
+}
+.user-off .demo.table-cell{
+	color: #FFBC66;
+}
+.user-off input.demo{
+	background-color:#FFBC66;
+	color: #5AA0CE;
+}
 

@@ -24,15 +24,33 @@
 		</div>
 	</div><br />
 </form>
-<form name="demologin" method="post" action="">
-	<input type="hidden" name="action" value="demologin" />
-	<input type="text" name="human" class="human" value="" />
-	<input type="hidden" name="ip" id="ip" value="" />
-	<input type="submit" value="Demologin" />
-</form>
+
 <script>
 	document.getElementById("ip").value="<?php echo $_SERVER["REMOTE_ADDR"] ?>";
 </script>
+	
+<div class="table demo">
+	<div class="table-cell demo">
+		Sofort testen!
+	</div>
+	<div class="table-cell right">
+		<form name="demologin" method="post" action="">
+			<input type="hidden" name="action" value="demologin" />
+			<input type="text" name="human" class="human" value="" />
+			<input type="hidden" name="ip" id="ip" value="" />
+			<input type="submit" class="demo" value="Demologin" />
+		</form>
+	</div>
+</div><br />
 
-<a href="?mode=register" title="Registrieren">Jetzt Registrieren</a><br />
-<a href="?mode=ad" title="Werbung">Werbung</a><br />
+		
+
+
+<a href="?mode=register" class="signup" title="Registrieren">Jetzt Registrieren</a><br />
+
+
+
+
+
+
+

@@ -8,8 +8,14 @@
 	<div>
 		<input type="text" name="email" id="email" value="" placeholder="E-Mail" required />
 	</div><br />
-	<div class="button">
-		<input type="submit" value="Senden" />
-	</div><br />
-	<a href="?mode=login">Login</a>
+	<div class="table">
+		<div class="table-cell">
+			<a href="?mode=login">Zurück zum Login</a>
+		</div>
+		<div class="table-cell right">
+			<input type="submit" value="Senden" />
+		</div>
+	</div>
+	
 </form>
+	
