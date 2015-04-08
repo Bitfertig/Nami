@@ -17,7 +17,7 @@ if ( !$_SESSION['User'] ) {
 
 	//Ausgabe
 	include 'php/header.php';
-	echo '<a href="?mode=ad" title="Werbung">Werbung</a><br />';
+	echo '<a href="/info" title="Infoseite">Infoseite</a><br />';
 	echo '<div class="content">';
 	echo '<a href="/" title="Zur Startseite" id="logolink"><img src="res/img/logo.png" alt="Logo" /></a>';
 
