@@ -10,39 +10,45 @@
 <body>
 
 	<header>
-		
-		{LOGO}
-		
-		<nav>
-			<a href="#">Home</a>
-			<a href="#">Info</a>
-			<a href="#">Über uns</a>
-			<a href="#">Kontakt</a>
-		</nav>
+		<div class="container">
 
-		<a href="/">Login</a>
+			<div class="logo">{LOGO}</div>
+			
+			<nav>
+				<a href="#">Home</a>
+				<a href="#">Info</a>
+				<a href="#">Über uns</a>
+				<a href="#">Kontakt</a>
+			</nav>
 
+			<a href="/" class="login-btn">Login</a>
+
+		</div>
 	</header>
 
 
 	<main>
-		<section>...Vorschaubilder/Slider/Demolink/Claim...</section>
-		<section><h2>Info</h2>...Vorteile......</section>
-		<section><h2>Über uns</h2>...Fotos und Spaß...</section>
-		<section><h2>Kontakt</h2>...Kontaktform...</section>
+		<div class="container">
+			<section class="s1">...Vorschaubild/Demolink/Claim... untereinander</section>
+			<section><h2>Info</h2>...Vorteile......</section>
+			<section><h2>Über uns</h2>...Fotos und Spaß...</section>
+			<section><h2>Kontakt</h2>...Kontaktform...</section>
+		</div>
 	</main>
 
 
 	<footer>
+		<div class="container">
 
-		<div>
-			<a href="#" class="open-lightbox" data-id="lb-impressum">Impressum</a>
-			<a href="#" class="open-lightbox" data-id="lb-datenschutz">Datenschutz</a>
-			<a href="#" class="open-lightbox" data-id="lb-agb">AGB</a>
+			<div class="fnav">
+				<a href="#" title="Impressum" class="open-lightbox" data-id="lb-impressum">Impressum</a>
+				<a href="#" title="Datenschutz" class="open-lightbox" data-id="lb-datenschutz">Datenschutz</a>
+				<a href="#" title="Allgemeine Geschäftsbedingungen" class="open-lightbox" data-id="lb-agb">AGB</a>
+			</div>
+
+			<div class="copyright">&copy; seit 2015 Vegvisir</div>
+
 		</div>
-
-		&copy; 2015 Vegvisir
-
 	</footer>
 
 

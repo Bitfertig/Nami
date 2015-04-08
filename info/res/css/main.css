@@ -1,1 +1,76 @@
 * { box-sizing:border-box; }
+
+html, body {
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;
+	font:14px/120% Arial, sans-serif;
+}
+
+.container {
+	max-width:980px;
+	margin:0 auto;
+}
+
+
+
+header {
+	position:relative;
+	height:100px;
+	border-bottom:1px solid #d1d1d1;
+}
+header .container {
+	position:relative;
+	height:100%;
+}
+header .logo {border:1px solid red;
+	height:100%;
+	width:200px;
+	float:left;
+}
+header nav {
+	float:left;
+}
+header .login-btn {
+	position:absolute;
+	top:36px;
+	right:0;
+	display:inline-block;
+	border:1px solid blue;
+	padding:5px 18px;
+	line-height:18px;
+	border-radius:6px;
+}
+
+
+main {
+
+}
+main .s1 {
+	height:350px;
+}
+
+
+footer {
+	background-color:#d1d1d1;
+	padding:40px 18px;
+	text-align:center;
+}
+footer .fnav {
+	margin-bottom:18px;
+
+}
+footer .fnav a {
+	display:inline-block;
+	padding:9px;
+}
+footer .fnav a:hover,
+footer .fnav a:focus,
+footer .fnav a:active {
+
+}
+footer .copyright {
+	font-size:12px;
+	color:gray;
+}
