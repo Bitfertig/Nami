@@ -17,6 +17,30 @@ a:active {
 	color:#333;
 }
 
+.human {display:none;}
+
+
+.img-protect {position:relative;}
+.img-protect:after {
+	content:'';
+	display:inline-block;
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+
+.grid {
+	display:table;
+	table-layout:fixed;
+	width:100%;
+}
+.grid-col {
+	display:table-cell;
+}
+
 
 .container {
 	max-width:980px;
@@ -34,34 +58,108 @@ header .container {
 	position:relative;
 	height:100%;
 }
-header .logo {border:1px solid red;
+header .logo {
 	height:100%;
 	width:200px;
+	margin-right:18px;
 	float:left;
 }
+
 header nav {
 	float:left;
 }
+header nav ul,
+header nav li {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+	display:inline-block;
+}
+header nav a {
+	display:inline-block;
+	margin-top:18px;
+	padding:18px 12px;
+	font-size:16px;
+	line-height:25px;
+	color:#5AA0CE;
+	text-decoration:none;
+}
+
 header .login-btn {
 	position:absolute;
 	top:36px;
 	right:0;
 	display:inline-block;
+	border:1px solid #5AA0CE;
 	padding:5px 18px;
 	line-height:18px;
 	border-radius:6px;
-	color:#fff;
+	color:#5AA0CE;
 	text-decoration:none;
+}
+header .login-btn:hover {
 	background-color:#5AA0CE;
+	color:#fff;
 }
 
 
 main {
 
 }
-main .s1 {
-	height:350px;
+main section {
+	padding:50px 0;
 }
+main section.s1 {
+	height:350px;
+	text-align:center;
+}
+main section.s1 h1 {
+	display:inline-block;
+	text-align:left;
+	font:italic bold 38px/35px Arial, sans-serif;
+	color:#5AA0CE;
+}
+main section.s1 .claim {
+	color:#808080;
+}
+
+main section.s2 h2 {
+	text-transform:uppercase;
+	text-align:center;
+	margin-bottom:50px;
+	color:#5AA0CE;
+}
+
+main section.s3 h2 {
+	text-transform:uppercase;
+	text-align:center;
+	margin-bottom:50px;
+	color:#5AA0CE;
+}
+.person {
+	text-align:center;
+}
+.person .foto,
+.person .foto img {
+	display:inline-block;
+	width:150px;
+	height:150px;
+	border-radius:50%;
+	background-color:#efefef;
+}
+.person .info .descr {
+	color:#d1d1d1;
+}
+
+main section.s4 h2 {
+	text-transform:uppercase;
+	text-align:center;
+	margin-bottom:50px;
+	color:#5AA0CE;
+}
+
+
+
 
 
 footer {
@@ -81,10 +179,17 @@ footer .fnav a {
 footer .fnav a:hover,
 footer .fnav a:focus,
 footer .fnav a:active {
-	color:#124773;
+	color:#333;
 	text-decoration:none;
 }
 footer .copyright {
 	font-size:12px;
 	color:gray;
 }
+
+
+
+
+
+
+

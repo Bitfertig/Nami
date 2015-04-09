@@ -12,13 +12,14 @@
 	<header>
 		<div class="container">
 
-			<div class="logo">{LOGO}</div>
+			<div class="logo"><a href="" title="Zur Startseite"><img src="res/img/logo-vertikal.png" alt="" /></a></div>
 			
 			<nav>
-				<a href="#">Home</a>
-				<a href="#">Info</a>
-				<a href="#">Über uns</a>
-				<a href="#">Kontakt</a>
+				<ul>
+					<li><a href="#info">Angebot</a></li>
+					<li><a href="#ueberuns">Über uns</a></li>
+					<li><a href="#kontakt">Kontakt</a></li>
+				</ul>
 			</nav>
 
 			<a href="/" title="Zur Veranstaltungsverwaltung..." class="login-btn">Zur Verwaltung</a>
@@ -29,10 +30,64 @@
 
 	<main>
 		<div class="container">
-			<section class="s1">...Vorschaubild/Demolink/Claim... untereinander</section>
-			<section><h2>Info</h2>...Vorteile......</section>
-			<section><h2>Über uns</h2>...Fotos und Spaß...</section>
-			<section><h2>Kontakt</h2>...Kontaktform...</section>
+
+			<section class="s1">
+				<div><h1>Veranstaltungs<br />verwaltung</h1></div>
+				<div class="claim">Weniger ist Trumpf.</div>
+			</section>
+
+			<a id="info"></a>
+			<section class="s2">
+				<h2>Unser Angebot</h2>
+				...Vorteile......
+			</section>
+
+			<a id="ueberuns"></a>
+			<section class="s3">
+				<h2>Über uns</h2>
+				<div class="grid">
+					<div class="grid-col person">
+						<div class="foto img-protect">
+							<img src="res/img/foto-aurel.jpg" alt="" />
+						</div>
+						<div class="info">
+							<div class="name">Aurel Hermand</div>
+							<div class="descr">Entwickler</div>
+						</div>
+					</div>
+					<div class="grid-col person">
+						<div class="foto img-protect">
+							<img src="res/img/foto-benjamin.jpg" alt="" />
+						</div>
+						<div class="info">
+							<div class="name">Benjamin Hermand</div>
+							<div class="descr">Entwickler</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<a id="kontakt"></a>
+			<section class="s4">
+				<h2>Kontaktiere uns</h2>
+				<form method="post" action="">
+					<input type="hidden" name="action" value="contact" />
+					<input type="text" class="human" name="author" value="" />
+					<div class="control">
+						<input type="text" name="name" value="" placeholder="Ihr Name" required />
+					</div>
+					<div class="control">
+						<input type="email" name="email" value="" placeholder="Ihre E-Mail" required /><br />
+					</div>
+					<div class="control">
+						<textarea name="text" required></textarea>
+					</div>
+					<div class="control-submit">
+						<input type="submit" value="E-Mail senden" />
+					</div>
+				</form>
+				...Mantis...
+			</section>
 		</div>
 	</main>
 
