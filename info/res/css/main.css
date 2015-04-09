@@ -8,6 +8,16 @@ html, body {
 	font:14px/120% Arial, sans-serif;
 }
 
+a {
+	color:#124773;
+}
+a:hover,
+a:focus,
+a:active {
+	color:#333;
+}
+
+
 .container {
 	max-width:980px;
 	margin:0 auto;
@@ -18,7 +28,7 @@ html, body {
 header {
 	position:relative;
 	height:100px;
-	border-bottom:1px solid #d1d1d1;
+	border-bottom:1px solid #efefef;
 }
 header .container {
 	position:relative;
@@ -37,10 +47,12 @@ header .login-btn {
 	top:36px;
 	right:0;
 	display:inline-block;
-	border:1px solid blue;
 	padding:5px 18px;
 	line-height:18px;
 	border-radius:6px;
+	color:#fff;
+	text-decoration:none;
+	background-color:#5AA0CE;
 }
 
 
@@ -64,11 +76,13 @@ footer .fnav {
 footer .fnav a {
 	display:inline-block;
 	padding:9px;
+	color:gray;
 }
 footer .fnav a:hover,
 footer .fnav a:focus,
 footer .fnav a:active {
-
+	color:#124773;
+	text-decoration:none;
 }
 footer .copyright {
 	font-size:12px;

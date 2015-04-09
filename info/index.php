@@ -21,7 +21,7 @@
 				<a href="#">Kontakt</a>
 			</nav>
 
-			<a href="/" class="login-btn">Login</a>
+			<a href="/" title="Zur Veranstaltungsverwaltung..." class="login-btn">Zur Verwaltung</a>
 
 		</div>
 	</header>
