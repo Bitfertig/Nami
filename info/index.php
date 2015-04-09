@@ -38,13 +38,13 @@
 
 			<a id="info"></a>
 			<section class="s2">
-				<h2>Unser Angebot</h2>
+				<h2>Das Angebot</h2>
 				...Vorteile......
 			</section>
 
 			<a id="ueberuns"></a>
 			<section class="s3">
-				<h2>Über uns</h2>
+				<h2>Wir sind...</h2>
 				<div class="grid">
 					<div class="grid-col person">
 						<div class="foto img-protect">
