@@ -39,8 +39,17 @@
 			<a id="info"></a>
 			<section class="s2">
 				<h2>Das Angebot</h2>
-				...Vorteile......
-				...Mantis...
+				<div class="text">
+					<p>
+						Hier wird Ihnen ein Verwaltungsprogramm für Veranstaltungen angeboten.
+						Die Reduktion auf die wichtigsten Merkmale dient der einfachen Bedienung für Redaktuere.
+						Die Schnittstelle kann nicht als solche bezeichnet werden, da Sie sehr einfach gehalten ist.
+						Warum kompliziert, wenn es auch einfach geht? Weniger ist Trumpf.
+						Probieren Sie es jetzt unverbindlich ohne aufwändige Registrierung aus.
+					</p>
+				</div>
+				<div class="mantis"><a href="http://mantis.vegvisir.de/">Fehler melden und Features wünschen.</a></div>
+				<div class="github"><a href="https://github.com/Vegvisir/Nami">Wirken Sie mit, der Quelltext ist offen</a></div>
 			</section>
 
 			<a id="ueberuns"></a>

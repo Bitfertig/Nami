@@ -129,6 +129,20 @@ main section.s2 h2 {
 	margin-bottom:50px;
 	color:#5AA0CE;
 }
+main section.s2 .text {
+	width:50%;
+	margin:0 auto 50px auto;
+}
+main section.s2 .mantis {
+	width:50%;
+	margin:18px auto;
+	text-align:center;
+}
+main section.s2 .github {
+	width:50%;
+	margin:18px auto;
+	text-align:center;
+}
 
 main section.s3 h2 {
 	text-transform:uppercase;
@@ -187,6 +201,10 @@ main section.s4 input[type=submit] {
 	padding:9px 27px;
 	background-color:#d1d1d1;
 }
+::-webkit-input-placeholder { color:#efefef; }
+::-moz-placeholder { color:#d1d1d1; } /* firefox 19+ */
+:-ms-input-placeholder { color:#efefef; } /* ie */
+input:-moz-placeholder { color:#ececec; }
 
 
 
