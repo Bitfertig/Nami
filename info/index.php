@@ -40,6 +40,7 @@
 			<section class="s2">
 				<h2>Das Angebot</h2>
 				...Vorteile......
+				...Mantis...
 			</section>
 
 			<a id="ueberuns"></a>
@@ -80,13 +81,12 @@
 						<input type="email" name="email" value="" placeholder="Ihre E-Mail" required /><br />
 					</div>
 					<div class="control">
-						<textarea name="text" required></textarea>
+						<textarea name="text" required>Hallo Team Nami,<?="\n\n"?></textarea>
 					</div>
 					<div class="control-submit">
 						<input type="submit" value="E-Mail senden" />
 					</div>
 				</form>
-				...Mantis...
 			</section>
 		</div>
 	</main>

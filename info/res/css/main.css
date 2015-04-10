@@ -157,6 +157,36 @@ main section.s4 h2 {
 	margin-bottom:50px;
 	color:#5AA0CE;
 }
+main section.s4 form {
+	display:block;
+	margin:0 auto;
+	width:400px;
+}
+main section.s4 input[type=text],
+main section.s4 input[type=email],
+main section.s4 input[type=submit],
+main section.s4 textarea {
+	margin:9px 0;
+	border:1px solid #d1d1d1;
+	padding:9px 9px;
+	font:14px/18px Arial, sans-serif;
+}
+main section.s4 input[type=text],
+main section.s4 input[type=email] {
+	width:60%;
+}
+main section.s4 textarea {
+	width:100%;
+	min-height:9.5em;
+	resize:vertical;
+}
+main section.s4 .control-submit {
+	text-align:right;
+}
+main section.s4 input[type=submit] {
+	padding:9px 27px;
+	background-color:#d1d1d1;
+}
 
 
 
