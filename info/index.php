@@ -59,7 +59,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 						Warum kompliziert, wenn es auch einfach geht? Weniger ist Trumpf.
 					</p>
 					<p>
-						Probieren Sie es jetzt unverbindlich ohne aufwändige Registrierung aus.
+						<a href="/">Unverbindlich und Registrierungsfrei testen &raquo;</a>
 					</p>
 				</div>
 				<div class="more">

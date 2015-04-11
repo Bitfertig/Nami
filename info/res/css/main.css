@@ -163,6 +163,9 @@ main section.s3 h2 {
 	height:150px;
 	border-radius:50%;
 	background-color:#efefef;
+	-webkit-filter: grayscale(50%);
+	-moz-filter: grayscale(50%);
+	filter: grayscale(50%);
 }
 .person .info .descr {
 	color:#d1d1d1;
