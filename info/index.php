@@ -45,7 +45,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 
 			<section class="s1">
 				<div><h1>Veranstaltungs<br />verwaltung</h1></div>
-				<div class="claim">Weniger ist Trumpf.</div>
+				<div class="claim">Mehr erreichen.</div>
 			</section>
 
 			<a id="info"></a>
@@ -71,7 +71,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 					</div>
 					<div class="github">
 						<a href="https://github.com/Vegvisir/Nami">
-							<img src="res/img/GitHub-32px.png" height="32" alt="" />
+							<img src="res/img/github.svg" height="32" alt="" />
 							<div class="moretext">Machen Sie mit, der Quelltext ist offen.</div>
 						</a>
 					</div>
