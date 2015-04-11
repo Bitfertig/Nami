@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+<?php
+
+// Kontaktformular
+if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$text = $_POST['text'];
+	$header = 'From: '.$email;
+	mail('org@vegvisir.de', 'Anfrage von '.$name, $text, $header);
+	header('Location: '.$_SERVER['PHP_SELF']);
+}
+
+?><!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -42,14 +54,28 @@
 				<div class="text">
 					<p>
 						Hier wird Ihnen ein Verwaltungsprogramm für Veranstaltungen angeboten.
-						Die Reduktion auf die wichtigsten Merkmale dient der einfachen Bedienung für Redaktuere.
+						Die Reduktion auf die wichtigsten Merkmale dient der einfachen Bedienung durch Redakteure.
 						Die Schnittstelle kann nicht als solche bezeichnet werden, da Sie sehr einfach gehalten ist.
 						Warum kompliziert, wenn es auch einfach geht? Weniger ist Trumpf.
+					</p>
+					<p>
 						Probieren Sie es jetzt unverbindlich ohne aufwändige Registrierung aus.
 					</p>
 				</div>
-				<div class="mantis"><a href="http://mantis.vegvisir.de/">Fehler melden und Features wünschen.</a></div>
-				<div class="github"><a href="https://github.com/Vegvisir/Nami">Wirken Sie mit, der Quelltext ist offen</a></div>
+				<div class="more">
+					<div class="mantis">
+						<a href="http://mantis.vegvisir.de/">
+							<img src="res/img/mantis.svg" height="32" alt="" />
+							<div class="moretext">Fehler melden und Features wünschen.</div>
+						</a>
+					</div>
+					<div class="github">
+						<a href="https://github.com/Vegvisir/Nami">
+							<img src="res/img/GitHub-32px.png" height="32" alt="" />
+							<div class="moretext">Machen Sie mit, der Quelltext ist offen.</div>
+						</a>
+					</div>
+				</div>
 			</section>
 
 			<a id="ueberuns"></a>
@@ -115,10 +141,29 @@
 		</div>
 	</footer>
 
-
-	<div style="display:none;" id="lb-impressum"><h2>Impressum</h2>...</div>
-	<div style="display:none;" id="lb-datenschutz"><h2>Datenschutz</h2>...</div>
-	<div style="display:none;" id="lb-agb"><h2>Allgemeine Geschäftsbedingungen</h2>...</div>
+	<div id="lb"></div>
+	<div id="lb-impressum" class="lb-content">
+		<div class="inner">
+			<h2>Impressum</h2>
+			Aurelian Hermand<br />
+			Graf-Johann-Str. 34<br />
+			26723 Emden<br />
+			org@vegvisir.de<br />
+			Tel. (+49) 0 151 - 1 54 333 54<br />
+		</div>
+	</div>
+	<div id="lb-datenschutz" class="lb-content">
+		<div class="inner">
+			<h2>Datenschutz</h2>
+			...
+		</div>
+	</div>
+	<div id="lb-agb" class="lb-content">
+		<div class="inner">
+			<h2>Allgemeine Geschäftsbedingungen</h2>
+			...
+		</div>
+	</div>
 
 </body>
 </html>
