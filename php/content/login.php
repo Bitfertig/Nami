@@ -18,6 +18,7 @@
 	<div class="table">
 		<div class="table-cell">
 			<a href="?mode=lostpassword" title="Passwort vergessen?">Passwort vergessen?</a>
+			<a href="" title="Demo-Login" id="demologinlink">Demo-Login</a>
 		</div>
 		<div class="table-cell right">
 			<input type="submit" value="Login" />
@@ -25,26 +26,19 @@
 	</div><br />
 </form>
 
+<form name="demologin" id="demologinform" method="post" action="">
+	<input type="hidden" name="action" value="demologin" />
+	<input type="text" name="human" class="human" value="" />
+	<input type="hidden" name="ip" id="ip" value="" />
+	<input type="submit" class="demo" value="Demo-Login" />
+</form>	
+
+
+	
 <script>
 	document.getElementById("ip").value="<?php echo $_SERVER["REMOTE_ADDR"] ?>";
 </script>
 	
-<div class="table demo">
-	<div class="table-cell demo">
-		Sofort testen!
-	</div>
-	<div class="table-cell right">
-		<form name="demologin" method="post" action="">
-			<input type="hidden" name="action" value="demologin" />
-			<input type="text" name="human" class="human" value="" />
-			<input type="hidden" name="ip" id="ip" value="" />
-			<input type="submit" class="demo" value="Demologin" />
-		</form>
-	</div>
-</div><br />
-
-		
-
 
 <a href="?mode=register" class="signup" title="Registrieren">Jetzt Registrieren</a><br />
 
