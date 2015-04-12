@@ -192,7 +192,7 @@ input[type=submit] {
 /* Curl */
 
 div.curl{
-  position:relative;
+  position:absolute;
   width:225px;height:150px;
   overflow:hidden;
   z-index:5;
@@ -234,7 +234,7 @@ div.curlcut{
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#001e5799', endColorstr='#001e5799',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 div.curlcut:before{
-   position:absolute;
+  position:absolute;
   top:-112px;
   left: -60px;
   display:block;
@@ -253,5 +253,6 @@ div.curltext{
   z-index:20;
 }
 a.linkcurl{
+	position:absolute;
 	display:inline-block;
 }
