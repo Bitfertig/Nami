@@ -144,7 +144,7 @@ main section.s2 .more a {
 main section.s2 .more a:hover {
 	color:#080808;
 }
-main section.s2 .mantis {
+main section.s2 .mantisbt {
 	width:50%;
 	margin:18px auto;
 	text-align:center;
@@ -154,6 +154,7 @@ main section.s2 .github {
 	margin:18px auto;
 	text-align:center;
 }
+
 
 main section.s3 h2 {
 	text-transform:uppercase;

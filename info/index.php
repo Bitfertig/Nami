@@ -2,12 +2,19 @@
 
 // Kontaktformular
 if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$text = $_POST['text'];
-	$header = 'From: '.$email;
-	mail('org@vegvisir.de', 'Anfrage von '.$name, $text, $header);
-	header('Location: '.$_SERVER['PHP_SELF']);
+	if ( empty($_POST['author'])
+		&& !empty($_POST['name'])
+		&& !empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
+		&& !empty($_POST['text'])
+	) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$text = $_POST['text'];
+		$header = 'From: '.$email;
+		mail('org@vegvisir.de', 'Anfrage von '.$name, $text, $header);
+		header('Location: '.$_SERVER['PHP_SELF'].'?contact=1#kontakt');
+	}
+	$_GET['contact'] = 0;
 }
 
 ?><!DOCTYPE html>
@@ -63,16 +70,16 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 					</p>
 				</div>
 				<div class="more">
-					<div class="mantis">
+					<div class="mantisbt">
 						<a href="http://mantis.vegvisir.de/">
-							<img src="res/img/mantis.svg" height="32" alt="" />
-							<div class="moretext">Fehler melden und Features wünschen.</div>
+							<svg role="img" title="Mantis BT" height="32"><use xlink:href="res/img/spritemap.svg#mantisbt--link"></use></svg>
+							<div class="moretext">Features wünschen<br />und Fehler melden.</div>
 						</a>
 					</div>
 					<div class="github">
 						<a href="https://github.com/Vegvisir/Nami">
-							<img src="res/img/github.svg" height="32" alt="" />
-							<div class="moretext">Machen Sie mit, der Quelltext ist offen.</div>
+							<svg role="img" title="GitHub" height="32"><use xlink:href="res/img/spritemap.svg#github--link"></use></svg>
+							<div class="moretext">Machen Sie mit,<br />der Quelltext ist offen.</div>
 						</a>
 					</div>
 				</div>

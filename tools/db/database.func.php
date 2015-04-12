@@ -243,7 +243,7 @@ $return =
 --
 -- Host Connection Info: ".$mysqli->host_info."
 -- Generation Time: ".date('F d, Y \a\t H:i A ( e )')."
--- Server version: ".mysql_get_server_info()."
+-- Server version: ".mysqli_get_server_info()."
 -- PHP Version: ".PHP_VERSION."
 --
 -- ---------------------------------------------------------\n\n
