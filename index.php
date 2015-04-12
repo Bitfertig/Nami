@@ -17,7 +17,18 @@ if ( !$_SESSION['User'] ) {
 
 	//Ausgabe
 	include 'php/header.php';
-	echo '<a href="/info" title="Infoseite">Infoseite</a><br />';
+	/* echo '<a href="/info" title="Infoseite">Infoseite</a><br />'; */
+	
+	/* Curl */
+	echo '<a href="/info" class="linkcurl" title="Infoseite">';
+	echo '<div class="curl">';
+    echo 	'<div class="curlcut"></div>';
+    echo 	'<div class="curltext">'; 
+    echo  		'Hier gelangen Sie zur Infoseite!';
+    echo 	'</div>';
+  	echo '</div>';
+  	echo '</a>';
+	
 	echo '<div class="content">';
 	echo '<a href="/" title="Zur Startseite" id="logolink"><img src="res/img/logo.png" alt="Logo" /></a>';
 
