@@ -108,9 +108,28 @@ main {
 
 }
 main section {
-	padding:50px 0;
+	position:relative;
+	padding:50px 0 50px 0;
+	margin-bottom:50px;
+}
+main section:last-child {
+	margin-bottom:0;
+} 
+main section:before {
+	content:'';
+	display:inline-block;
+	width:1px;
+	height:100px;
+	position:absolute;
+	top:-75px;
+	left:50%;
+	background-color:#D1D1D1;
+}
+main section:first-child:before {
+	display:none;
 }
 main section.s1 {
+	position:relative;
 	height:350px;
 	text-align:center;
 }
@@ -123,6 +142,9 @@ main section.s1 h1 {
 main section.s1 .claim {
 	color:#808080;
 }
+main section.s1 .img-museum { position:absolute;top:180px;left:20%; }
+main section.s1 .img-theater { position:absolute;top:250px;left:40%; }
+main section.s1 .img-sport { position:absolute;top:200px;right:20%; }
 
 main section.s2 h2 {
 	text-transform:uppercase;
@@ -137,30 +159,33 @@ main section.s2 .text {
 main section.s2 .more .info {
 	display:block;
 }
-main section.s2 .more a {
+main section.s2 .more a {display:inline-block;
 	color:#5AA0CE;
 	text-decoration:none;
 }
 main section.s2 .more a:hover {
 	color:#080808;
 }
-main section.s2 .mantisbt {
-	width:50%;
-	margin:18px auto;
-	text-align:center;
-}
+main section.s2 .mantisbt,
 main section.s2 .github {
 	width:50%;
 	margin:18px auto;
 	text-align:center;
 }
-
+main section.s2 .mantisbt svg,
+main section.s2 .github svg {
+	max-width: 100%;
+}
 
 main section.s3 h2 {
 	text-transform:uppercase;
 	text-align:center;
 	margin-bottom:50px;
 	color:#5AA0CE;
+}
+main section.s3 .personwrap {
+	width:80%;
+	margin:0 auto;
 }
 .person {
 	text-align:center;

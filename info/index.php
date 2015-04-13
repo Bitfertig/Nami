@@ -1,23 +1,8 @@
 <?php
-
-// Kontaktformular
-if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
-	if ( empty($_POST['author'])
-		&& !empty($_POST['name'])
-		&& !empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)
-		&& !empty($_POST['text'])
-	) {
-		$name = $_POST['name'];
-		$email = $_POST['email'];
-		$text = $_POST['text'];
-		$header = 'From: '.$email;
-		mail('org@vegvisir.de', 'Anfrage von '.$name, $text, $header);
-		header('Location: '.$_SERVER['PHP_SELF'].'?contact=1#kontakt');
-	}
-	$_GET['contact'] = 0;
-}
-
-?><!DOCTYPE html>
+include 'php/functions.php';
+include 'php/actions.php';
+?>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
@@ -53,6 +38,9 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 			<section class="s1">
 				<div><h1>Veranstaltungs<br />verwaltung</h1></div>
 				<div class="claim">Mehr erreichen.</div>
+				<img src="res/img/museum.png" alt="" class="img-museum" />
+				<img src="res/img/theater.png" alt="" class="img-theater" />
+				<img src="res/img/sport.png" alt="" class="img-sport" />
 			</section>
 
 			<a id="info"></a>
@@ -66,7 +54,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 						Warum kompliziert, wenn es auch einfach geht? Weniger ist Trumpf.
 					</p>
 					<p>
-						<a href="/">Unverbindlich und Registrierungsfrei testen &raquo;</a>
+						<a href="/">Unverbindlich und registrierungsfrei testen &raquo;</a>
 					</p>
 				</div>
 				<div class="more">
@@ -88,7 +76,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 			<a id="ueberuns"></a>
 			<section class="s3">
 				<h2>Wir sind...</h2>
-				<div class="grid">
+				<div class="grid personwrap">
 					<div class="grid-col person">
 						<div class="foto img-protect">
 							<img src="res/img/foto-aurel.jpg" alt="" />
@@ -113,17 +101,25 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 			<a id="kontakt"></a>
 			<section class="s4">
 				<h2>Kontaktiere uns</h2>
-				<form method="post" action="">
+				<?php
+					$status = '';
+					if ( isset($_GET['announcement']['type']) && $_GET['announcement']['type']=='contact' ) {
+						$status = ($_GET['announcement']['status'] == 1) ? 'submitted' : 'failed';
+					}
+				?>
+				<form method="post" action="" class="<?=$status?>">
 					<input type="hidden" name="action" value="contact" />
 					<input type="text" class="human" name="author" value="" />
+					<?php if ($status=='submitted') { ?><div class="successmsg">Vielen Dank für Ihre Nachricht!<br /></div><?php } ?>
+					<?php if ($status=='failed') { ?><div class="errormsg">Bitte überprüfen Sie ihre Eingaben.</div><?php } ?>
 					<div class="control">
-						<input type="text" name="name" value="" placeholder="Ihr Name" required />
+						<input type="text" name="name" value="<?=req('name')?>" title="Ihr Name" placeholder="Ihr Name" required />
 					</div>
 					<div class="control">
-						<input type="email" name="email" value="" placeholder="Ihre E-Mail" required /><br />
+						<input type="email" name="email" value="<?=req('email')?>" title="Ihre E-Mail" placeholder="Ihre E-Mail" required /><br />
 					</div>
 					<div class="control">
-						<textarea name="text" required>Hallo Team Nami,<?="\n\n"?></textarea>
+						<textarea name="text" required><?php $text = "Hallo Team Nami,\n\n"; echo (req('name')!=$text ? req('name') : $text); ?>Hallo Team Nami,<?="\n\n"?></textarea>
 					</div>
 					<div class="control-submit">
 						<input type="submit" value="E-Mail senden" />
@@ -155,7 +151,7 @@ if ( isset($_POST['action']) && $_POST['action']=='contact' ) {
 			Aurelian Hermand<br />
 			Graf-Johann-Str. 34<br />
 			26723 Emden<br />
-			org@vegvisir.de<br />
+			<?=obscure_email('org@vegvisir.de')?><br />
 			Tel. (+49) 0 151 - 1 54 333 54<br />
 		</div>
 	</div>
