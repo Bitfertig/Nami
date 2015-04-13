@@ -8,7 +8,6 @@
  * UPDATE Tabellenname SET `Spalte1`="Wert" WHERE 1
  * DELETE FROM Tabellenname WHERE 1
  */
-
 // MySQLi-Verbindung: $mysqli = $GLOBALS['mysqli']
 
 
@@ -20,16 +19,29 @@ if ( !isset($_SESSION['User']) ) {
 }
 
 
+// Sonderfall: Action-Variable setzen für Logout
+if ( isset($_GET['action']) && $_GET['action']=='logout' ) {
+	$_POST['action'] = 'logout';
+}
 
-// Action-Variable setzen
-$ACTION = isset($_POST['action']) ? $_POST['action'] : (isset($_GET['action']) ? $_GET['action'] : '');
+
+// Rückmeldevariable erstellen
+$action = isset($_POST['action']) ? $_POST['action'] : '';
+if ( isset($_POST['action']) ) {
+	$announcement = array();
+	$announcement['action'] = $action;
+	$announcement['status'] = false;
+}
+function announcement_query($announcement) {
+	return urldecode(http_build_query(array('announcement'=>$announcement)));
+}
 
 
 
 /**
  * Demo-Zugang (Registrierung + Login)
  */
-if ( isset($_POST['action']) && $_POST['action'] == 'demologin' ) {
+if ( $action == 'demologin' ) {
 	if ( isset($_POST['human']) && $_POST['human'] == ''
 		&& isset($_POST['ip']) && $_POST['ip'] == $_SERVER['REMOTE_ADDR'] ) {
 
@@ -59,8 +71,9 @@ if ( isset($_POST['action']) && $_POST['action'] == 'demologin' ) {
 
 		// Login...
 		$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
-		header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
-
+		$announcement['status'] = true;
+		header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement));
+		exit;
 	}
 }
 
@@ -69,7 +82,7 @@ if ( isset($_POST['action']) && $_POST['action'] == 'demologin' ) {
 /**
  * Neue Registrierung
  */
-if ( $ACTION == 'register' ) {
+if ( $action == 'register' ) {
 	if ( !empty($_POST['username']) && !empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ) { // Überprüfe Eingaben
 		
 		// Original Variablen:
@@ -108,10 +121,11 @@ if ( $ACTION == 'register' ) {
 				."Aktivierungslink:\n"
 				."http://".$_SERVER["SERVER_NAME"]."?action=register_doi&userid=".$userid."&code=".$registercode;
 			$mail = mail($email, 'Ihre Registrierung', $nachricht);
+			$announcement['status'] = true;
+			header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement));
+			exit;
 		}
 	}
-	$MESSAGE = 'register-failed';
-
 }
 
 
@@ -120,7 +134,7 @@ if ( $ACTION == 'register' ) {
  * Doubleoptin-Registrierung (doi)
  * Bei Aufruf des Bestätigungslink in der Email, wird der Benutzer aktiviert.
  */
-if ( $ACTION == 'register_doi' ) {
+if ( $action == 'register_doi' ) {
 	if ( !empty($_GET['code']) && !empty($_GET['userid']) ) {
 		
 		// Original Variablen:
@@ -138,10 +152,11 @@ if ( $ACTION == 'register_doi' ) {
 		// Variable für die Ausgabe:
 		$affected_rows = $mysqli->affected_rows; // Anzahl veränderter Datensätze
 		if ( $affected_rows > 0 ) {
-			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
+			$announcement['status'] = true;
+			header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement)); // Weiterleitung
+			exit;
 		}
 	}
-	$MESSAGE = 'registerdoi-failed';
 }
 
 
@@ -149,7 +164,7 @@ if ( $ACTION == 'register_doi' ) {
 /**
  * Login (Authentifizierung)
  */
-if ( $ACTION == 'login' ) {
+if ( $action == 'login' ) {
 	if ( !empty($_POST['username']) && !empty($_POST['password']) ) {
 		
 		// Original Variablen:
@@ -180,11 +195,12 @@ if ( $ACTION == 'login' ) {
 				}
 				
 				$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
-				header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
+				$announcement['status'] = true;
+				header('Location: '.$_SERVER['PHP_SELF']);
+				exit;
 			}
 		}
 	}
-	$MESSAGE = 'login-failed'; // Login fehlgeschlagen
 }
 
 
@@ -192,11 +208,12 @@ if ( $ACTION == 'login' ) {
 /**
  * Logout
  */
-if ( $ACTION == 'logout' ) {
+if ( $action == 'logout' ) {
 	
 	$_SESSION['User'] = false; // Benutzerdaten in Session speichern
-	header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
-	
+	$announcement['status'] = true;
+	header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement));
+	exit;
 }
 
 
@@ -204,7 +221,7 @@ if ( $ACTION == 'logout' ) {
 /**
  * "Passwort vergessen?"
  */
-if ( $ACTION == 'lostpassword' ) {
+if ( $action == 'lostpassword' ) {
 	if ( !empty( $_POST['email'] ) ) {
 		
 		// Original Variablen:
@@ -232,10 +249,11 @@ if ( $ACTION == 'lostpassword' ) {
 				."http://".$_SERVER["SERVER_NAME"]."?action=resetpassword_doi&userid=".$userid."&resetcode=".$resetcode;
 			// Weitere Vorlage und Dokument erstellen
 			$mail = mail($email, 'Passwort zurücksetzen', $nachricht);
-			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
+			$announcement['status'] = true;
+			header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement));
+			exit;
 		}
 	}
-	$MESSAGE = 'lostpassword-failed';
 }
 
 
@@ -243,7 +261,7 @@ if ( $ACTION == 'lostpassword' ) {
 /**
  * Passwort zurücksetzen
  */
-if ( $ACTION == 'resetpassword' ) {
+if ( $action == 'resetpassword' ) {
 	if ( !empty($_POST['newpassword']) && !empty($_POST['userid']) && !empty($_POST['resetcode']) ) {
 		
 		// Original Variablen:
@@ -263,10 +281,17 @@ if ( $ACTION == 'resetpassword' ) {
 		$affected_rows = $mysqli->affected_rows; // Anzahl veränderter Datensätze
 		if ( $affected_rows > 0 ) {
 			$_SESSION['User'] = new User( $userid ); // Benutzerdaten in Session speichern
-			header('Location: '.$_SERVER['PHP_SELF']); // Weiterleitung
+			$announcement['status'] = true;
+			header('Location: '.$_SERVER['PHP_SELF'].'?'.announcement_query($announcement));
+			exit;
 		}
 	}
-	$MESSAGE = 'resetpassword-failed';
 }
 
+
+
+if ( isset($_POST['action']) ) {
+	$_GET['announcement'] = $announcement;
+	unset($announcement);
+}
 ?>

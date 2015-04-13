@@ -59,6 +59,12 @@ else {
 	if ( $mode == 'start' || $mode == '' ) {
 		include 'php/content/start.php';
 	}
+	elseif ( $mode == 'eventedit' ) {
+		include 'php/content/eventedit.php';
+	}
+	elseif ( $mode == 'medien' ) {
+		include 'php/content/medien.php';
+	}
 	elseif ( $mode == 'userconfig' ) {
 		include 'php/content/userconfig.php';
 	}

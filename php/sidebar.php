@@ -11,6 +11,7 @@
 	<nav>
 		<ul>
 			<li><a href="?mode=start">Veranstaltungen</a>
+			<li><a href="?mode=medien">Medien</a>
 			<!-- Version 2.0.0: <li><a href="?mode=aggregat">Aggregat</a></li> -->
 			<li><a href="?mode=schnittstelle">Schnittstelle</a></li>
 		</ul>
