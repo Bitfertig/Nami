@@ -4,7 +4,7 @@
 -- 
 --
 -- Host Connection Info: Localhost via UNIX socket
--- Generation Time: April 14, 2015 at 23:27 PM ( Europe/Berlin )
+-- Generation Time: April 14, 2015 at 23:44 PM ( Europe/Berlin )
 -- Server version: 5.5.38
 -- PHP Version: 5.6.2
 --
@@ -68,7 +68,15 @@ CREATE TABLE `events` (
   `eventfileid` int(20) NOT NULL COMMENT 'Ein Bild',
   `lastchange` int(20) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `userid`, `title`, `description`, `keywords`, `eventfileid`, `lastchange`) VALUES
+(1, 1, 'Meine Veranstaltung 1', 'Die und das ist die Beschreibung.', 'Wort1, Wort2, Wort3', 0, 0),
+(2, 1, 'Meine Veranstaltung 2', 'Die und das ist die Beschreibung.', 'Wort1, Wort2, Wort3', 0, 0);
 
 
 
@@ -91,24 +99,16 @@ CREATE TABLE `users` (
   `ip` varchar(20) NOT NULL,
   `resetcode` varchar(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `status`, `username`, `password`, `email`, `birthday`, `registertime`, `registercode`, `lastlogin`, `ip`, `resetcode`) VALUES
-(3, 1, 'dipser', '0fdd9f682fe6d949234730348710ac7a', 'dipser@gmail.com', 0, 1428191169, '17RdTz7O9', 0, '127.0.0.1', ''),
-(4, -1, 'Demobenutzer', 'eb90c4730aa55709b632e6296e235bc1', 'user@demo', '', 1428340739, 'wpWheMkNE', 0, '127.0.0.1', ''),
-(5, -1, 'Demobenutzer', 'd2d64ceaf36b04edc58ef31de7cde598', 'user@demo', '', 1428340992, 'NNdRAoLJo', 0, '127.0.0.1', ''),
-(6, -1, 'Demobenutzer', '77c502c20bf2d837b16ce0e8b30221b3', 'user@demo', '', 1428704443, 'yHXdAmRMB', 0, '127.0.0.1', ''),
-(7, -1, 'Demobenutzer', 'aa04591499703d4634855ee476039296', 'user@demo', '', 1428704492, 'N8EdLIrd0', 0, '127.0.0.1', ''),
-(8, -1, 'Demobenutzer', '5082bfc08bd85b1d191d4d7d6cb87917', 'user@demo', '', 1428704955, 'PfbkjDl9A', 0, '127.0.0.1', ''),
-(9, -1, 'Demobenutzer', '56f3fe61d1ad2ccffdf34f17372f8241', 'user@demo', '', 1428706285, 'cn0XR3S85', 0, '127.0.0.1', ''),
-(10, -1, 'Demobenutzer', 'b8eaf02e072f57c679fccb01392816ee', 'user@demo', '', 1428706324, 'ZRgAlr52P', 0, '127.0.0.1', ''),
-(11, -1, 'Demobenutzer', '49d4e3dc94f953ab08f1918ed01b6eb3', 'user@demo', '', 1428706405, 'SZ9NEjDzO', 0, '127.0.0.1', ''),
-(12, -1, 'Demobenutzer', 'bfb6eb86b5726033adc10047cf19695a', 'user@demo', '', 1428706702, '9qrARaz23', 0, '127.0.0.1', ''),
-(13, -1, 'Demobenutzer', '079b2728cfc1aa5539846ad795efc1cf', 'user@demo', '', 1428772550, 'itc3fVgTx', 0, '127.0.0.1', '');
+(1, 1, 'dipser', '0fdd9f682fe6d949234730348710ac7a', 'dipser@gmail.com', 0, 1428191169, '17RdTz7O9', 0, '127.0.0.1', ''),
+(2, 1, 'Benjamin', '0fdd9f682fe6d949234730348710ac7a', 'benjamin@hermand.de', 0, 1428340739, 'wpWheMkNE', 0, '127.0.0.1', ''),
+(3, -1, 'Demobenutzer', 'd2d64ceaf36b04edc58ef31de7cde598', 'user@demo', 0, 1428340992, 'NNdRAoLJo', 0, '127.0.0.1', '');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
