@@ -7,9 +7,10 @@
  
  
 /**
- * Function to import SQL data.
+ * Import SQL data.
  *
  * @param string $args as the queries of sql data , you could use file get contents to read data args
+ * @param string/array $tables_whitelist 'all' = all tables; array('tbl1',...) = only listet tables
  * @param string $dbhost database host
  * @param string $dbuser database user
  * @param string $dbpass database password
@@ -17,7 +18,7 @@
  *
  * @return string complete if complete
  */
-function mysqli_import_sql( $args , $dbhost, $dbuser, $dbpass ,$dbname ) {
+function database_import( $args, $tables_whitelist, $dbhost, $dbuser, $dbpass, $dbname ) {
 
 	// check mysqli extension installed
 	if ( !function_exists('mysqli_connect') ) {
@@ -35,7 +36,9 @@ function mysqli_import_sql( $args , $dbhost, $dbuser, $dbpass ,$dbname ) {
 	$mysqli->query('SET foreign_key_checks = 0');
 	if ( $result = $mysqli->query("SHOW TABLES") ) {
 	    while ( $row = $result->fetch_array(MYSQLI_NUM) ) {
-	        $mysqli->query('DROP TABLE IF EXISTS '.$row[0]);
+	    	if ( $tables_whitelist=='all' || in_array($row[0], (array)$tables_whitelist) ) {
+	        	$mysqli->query('DROP TABLE IF EXISTS '.$row[0]);
+	        }
 	    }
 	}
 	$mysqli->query('SET foreign_key_checks = 1');
@@ -96,23 +99,23 @@ function mysqli_import_sql( $args , $dbhost, $dbuser, $dbpass ,$dbname ) {
 
 
 /**
- * MYSQL EXPORT TO GZIP 
- * exporting database to sql gzip compression data.
- * if directory writable will be make directory inside of directory if not exist, else wil be die
+ * Export SQL data.
  *
- * @param string directory , as the directory to put file
- * @param $outname as file name just the name !, if file exist will be overide as numeric next ++ as name_1.sql.gz , name_2.sql.gz next ++
+ * if directory writable will be make directory inside of directory if not exist, else will be die
  *
+ * @param string directory, as the directory to put file
+ * @param string $outname as file name just the name
+ * @param string/array $tables_whitelist 'all' = all tables; array('tbl1',...) = only listet tables
  * @param string $dbhost database host
  * @param string $dbuser database user
  * @param string $dbpass database password
  * @param string $dbname database name
  *
  */
-function backup_database( $directory, $outname , $dbhost, $dbuser, $dbpass ,$dbname ) {
+function database_backup( $directory, $outname, $tables_whitelist, $dbhost, $dbuser, $dbpass, $dbname ) {
 	
 	// check mysqli extension installed
-	if( !function_exists('mysqli_connect') ) {
+	if ( !function_exists('mysqli_connect') ) {
 		die('This scripts need mysql extension to be running properly! Please resolve!');
 	}
 
@@ -126,7 +129,7 @@ function backup_database( $directory, $outname , $dbhost, $dbuser, $dbpass ,$dbn
 	$dir = $directory;
 	$result = '<p>Could not create backup directory on :'.$dir.' Please Please make sure you have set Directory on 755 or 777 for a while.</p>';  
 	$res = true;
-	if( !is_dir( $dir ) ) {
+	if ( !is_dir( $dir ) ) {
 		if( !@mkdir( $dir, 755 ) ) {
 			$res = false;
 		}
@@ -135,27 +138,17 @@ function backup_database( $directory, $outname , $dbhost, $dbuser, $dbpass ,$dbn
 	$n = 1;
 	if ( $res ) {
 
-		$name = $outname;
-		# counts
-		/*if ( file_exists($dir.'/'.$name.'.sql' ) ) {
-
-			for ($i=1; @count( file($dir.'/'.$name.'_'.$i.'.sql') ); $i++) {
-				$name = $name;
-				if ( !file_exists( $dir.'/'.$name.'_'.$i.'.sql') ) {
-					$name = $name.'_'.$i;
-					break;
-				}
-			}
-		}*/
-		$name = $name.'_'.date('Y-m-d-H-i-s');
+		$name = $outname.'_'.date('Y-m-d-H-i-s');
 
 		$fullname = $dir.'/'.$name.'.sql'; # full structures
 
 		if ( !$mysqli->error ) {
 			$sql = "SHOW TABLES";
 			$show = $mysqli->query($sql);
-			while ( $r = $show->fetch_array() ) {
-				$tables[] = $r[0];
+			while ( $row = $show->fetch_array() ) {
+				if ( $tables_whitelist=='all' || in_array($row[0], (array)$tables_whitelist) ) {
+					$tables[] = $row[0];
+				}
 			}
 
 			if ( !empty( $tables ) ) {
@@ -243,7 +236,7 @@ $return =
 --
 -- Host Connection Info: ".$mysqli->host_info."
 -- Generation Time: ".date('F d, Y \a\t H:i A ( e )')."
--- Server version: ".mysqli_get_server_info()."
+-- Server version: ".$mysqli->server_info."
 -- PHP Version: ".PHP_VERSION."
 --
 -- ---------------------------------------------------------\n\n
