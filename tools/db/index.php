@@ -11,8 +11,8 @@ define('DBPASS', 'root');
 // backup & import
 $dir = dirname(__FILE__).'/backups'; // directory files
 $name = 'backup'; // name sql backup
+$tables_whitelist = 'all'; // Alle DB-Tabellen komplett sichern/löschen/ersetzen
 //$tables_whitelist = array('users', 'events', 'eventdates', 'eventfiles'); // Tabellen die gesichert/ersetzt werden sollen
-$tables_whitelist = 'all';
 
 
 
