@@ -1,5 +1,5 @@
 /**
- * CSS
+ * CSS Verwaltung
  *
  * Farben:
  * #124773 - #224F91 - #008BAE - #5AA0CE Blau
@@ -48,6 +48,29 @@ input[type=submit] {
 .human{
 	display: none;
 }
+
+
+.table-styled {
+	width:100%;
+	border-spacing:0;
+	border-collapse:collapse;
+}
+.table-styled td {
+	border-bottom:1px solid #5AA0CE;
+	padding:9px;
+}
+.table-styled tr:first-child td {
+	border-top:1px solid #5AA0CE;
+}
+.table-styled td.nopadding {
+	padding:0;
+}
+.table-styled a.fill {
+	display:block;
+	width:100%;
+	padding:9px;
+}
+
 
 /*******************************************************************
  * .user-on

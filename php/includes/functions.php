@@ -14,6 +14,12 @@
 		return $output;
 	}
 
+	function plaintext($text) {
+		$text = strip_tags($text);
+		$text = htmlspecialchars($text);
+		return $text;
+	}
+
 	// Fehlendes "http://" hinzufügen -ah2014
 	function addScheme($url, $scheme = 'http://') {
 		return parse_url($url, PHP_URL_SCHEME) === null ? $scheme . $url : $url;
