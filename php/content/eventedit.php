@@ -1,19 +1,19 @@
-
-<form name="demologin" id="eventedit" method="post" action="">
-	<input type="hidden" name="action" value="eventedit" />
-	<input type="hidden" name="id" value="<?=req('id', 'GET')?>" />
-
 <?php
-$userid = $_SESSION['User']->get('id');
-$eventid = req('id', 'GET');
 
-//
+// Funktion um eine Request oder Global Variable zurückzuliefern
 function reqorglob($reqname) {
 	if ( isset($_POST['action']) ) {
 		return req($reqname);
 	}
 	return isset($GLOBALS[$reqname]) ? $GLOBALS[$reqname] : '';
 }
+
+
+
+$userid = $_SESSION['User']->get('id');
+$eventid = req('id', 'GET');
+
+
 
 if ( !empty($eventid) ) {
 	$sql = 'SELECT * FROM events WHERE userid = :userid AND id = :eventid';
@@ -31,8 +31,17 @@ if ( !empty($eventid) ) {
 		$GLOBALS['keywords'] = $row->keywords;
 		$GLOBALS['status'] = $row->keywords;
 	}
+
 }
 ?>
+
+
+
+<form name="demologin" id="eventedit" method="post" action="">
+	<input type="hidden" name="action" value="eventedit" />
+	<input type="hidden" name="id" value="<?=req('id', 'GET')?>" />
+
+
 
 	<h1>Veranstaltung editieren</h1>
 
@@ -73,6 +82,24 @@ List: 0,1,2
 Range: 1-5
 Interval: *./4 0-23/2
 */
+
+if ( !empty($eventid) ) {
+
+	$sql = 'SELECT * FROM eventdates WHERE eventid = :eventid';
+	$stmt = $pdo->prepare($sql);
+	$stmt->bindParam(':eventid', $eventid, PDO::PARAM_INT);
+	$stmt->execute();
+
+	$count = $stmt->rowCount();
+
+	while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+		$GLOBALS['id'] = $row->id;
+		echo $GLOBALS['startdate'] = $row->startdate;
+		echo $GLOBALS['duration'] = $row->duration;
+	}
+
+}
+
 ?>
 
 
