@@ -83,6 +83,43 @@ Range: 1-5
 Interval: *./4 0-23/2
 */
 
+function cronTimestampGenerator($cron, $max=10) { // iterator? yield in php?
+	$timestamps = array();
+	$cron = explode(' ', $cron);
+	$data = array(
+		'minute' => $cron[0],
+		'hour' => $cron[1],
+		'day_of_month' => $cron[2],
+		'month' => $cron[3],
+		'day_of_week' => $cron[4],
+		'year' => $cron[5]
+	);
+
+	// 1. Umwandeln von minutes in Sekunden
+	$_m = explode(',', $data['minute']);
+	$minutes = array();
+	foreach ($_m as $m) {
+		if ( $_m == '*' ) { // Asterisk ("every")
+			array_push($minutes, range(0, 59));
+		} elseif ( strpos($_m, '-') !== false ) { // Range: 1-5
+			$split = explode('-', $_m);
+			$from = $split[0];
+			$from = $split[1];
+			array_push($minutes, range($from, $to));
+		} elseif ( strpos($_m, '/') !== false ) { // Interval: 1/5
+
+		} else {
+			$minutes[] = 0;
+		}
+
+		yield $minutes;
+	}
+
+
+	//return $data; // Timestamp
+}
+
+
 if ( !empty($eventid) ) {
 
 	$sql = 'SELECT * FROM eventdates WHERE eventid = :eventid';
@@ -96,6 +133,7 @@ if ( !empty($eventid) ) {
 		$GLOBALS['id'] = $row->id;
 		echo $GLOBALS['startdate'] = $row->startdate;
 		echo $GLOBALS['duration'] = $row->duration;
+		echo '<br />'. print_r(cronTimestampGenerator($GLOBALS['startdate']), true). '<br /><hr /><br /><br />';
 	}
 
 }
