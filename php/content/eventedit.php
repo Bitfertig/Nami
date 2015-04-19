@@ -14,16 +14,6 @@ $userid = $_SESSION['User']->get('id');
 $eventid = req('id', 'GET');
 
 
-if( !isset($_GET['asdf']) ){
-	$_GET['asdf'] = 0;
-}
-
-echo $_GET['asdf'];
-
-$_GET[‚asdf‘] = isset($_GET[‚asdf‘]) ? $_GET[‚asdf‘] : '';
-
-
-
 
 if ( !empty($eventid) ) {
 	$sql = 'SELECT * FROM events WHERE userid = :userid AND id = :eventid';
