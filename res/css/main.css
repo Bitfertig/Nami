@@ -124,6 +124,20 @@ input[type=submit] {
 	padding-left:300px;
 }
 
+/* Medien */
+table.media-list {
+  width: 100%;
+}
+table.media-list td,th {
+	background-color: #EEE;
+    padding: 7px;
+}
+table.media-list td.media-list {
+	text-align: right;
+}
+table.media-list tr input.media-list {
+	text-align: right;
+}
 
 
 /*******************************************************************

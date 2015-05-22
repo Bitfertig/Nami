@@ -1,11 +1,11 @@
 <h1>Medien</h1>
 
-<form enctype="multipart/form-data" action="?mode=medien" method="post">
-	<input type="hidden" name="action" value="mediaupload" />
-    <input name="userfile" type="file" />
-    <input type="submit" value="Datei abschicken" />
-</form>
 
+	<form enctype="multipart/form-data" action="?mode=medien" method="post">
+		<input type="hidden" name="action" value="mediaupload" />
+	    <input name="userfile" type="file" />
+	    <input class="media-list" type="submit" value="Datei abschicken" />
+	</form>
 
 
 <?php
@@ -95,11 +95,16 @@ $stmt->execute();
 
 
 
-echo '<ul>';
+echo '<table class="media-list">';
 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-    echo '<li>'.$row->id .' '. $row->name .'</li>';
+    echo '<tr>'
+    		.'<td><img src="/thumbnail/'. thumbnail($row->id .'-'. $row->name) .'" alt="" width="30" /></td>'
+    		.'<td>'. $row->name .'</td>'
+    		.'<td class="media-list">Liste</td>'
+    		.'<td class="media-list">Löschen</td>'
+    	  .'</tr>';
 }
-echo '</ul>';
+echo '</table>';
 
 
 ?>
