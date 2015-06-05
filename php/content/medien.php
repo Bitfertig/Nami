@@ -94,17 +94,25 @@ $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
 $stmt->execute();
 
 
+/* lightbox gallery */
 
-echo '<table class="media-list">';
+	echo '<form action="?mode=medien" method="post">';
+	echo 	'<input type="hidden" name="action" value="mediadelete" />';
+	echo 	'<input name="id" id="mediaid" type="hidden" value="" />';
+
+
+
+echo '<div class="popup-gallery"><table class="media-list">';
 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
     echo '<tr>'
-    		.'<td><img src="/thumbnail/'. thumbnail($row->id .'-'. $row->name) .'" alt="" width="30" /></td>'
+    		.'<td><a href="/media/'. $row->id .'-'. $row->name .'"><img src="/thumbnail/'. thumbnail($row->id .'-'. $row->name) .'" alt="" width="30" /></a></td>'
     		.'<td>'. $row->name .'</td>'
-    		.'<td class="media-list">Liste</td>'
-    		.'<td class="media-list">Löschen</td>'
+    		.'<td class="media-list">Verwendet in</td>'
+    		.'<td class="media-list"><input class="mediadelete" type="button" data-id="'.$row->id.'" value="Löschen" /></td>'
     	  .'</tr>';
 }
-echo '</table>';
+echo '</table></div>';
+echo '</form>';
 
 
 ?>
@@ -112,8 +120,32 @@ echo '</table>';
 
 
 
+<script>
+$(document).ready(function() {
+
+	$('.mediadelete').on('click',function(){
+		$('#mediaid').val( $(this).data('id') );
+		$('.mediadelete').submit();
+	});
 
 
+/* lightbox gallery */
 
+	$('.popup-gallery').magnificPopup({
+		delegate: 'a',
+		type: 'image',
+		tLoading: 'Loading image #%curr%...',
+		mainClass: 'mfp-img-mobile',
+		gallery: {
+			enabled: true,
+			navigateByImgClick: true,
+			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+		},
+		image: {
+			tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+		}
+	});
 
+});
+</script>
 
