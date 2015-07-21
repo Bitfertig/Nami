@@ -1,4 +1,7 @@
 <?php
+
+PHP_VERSION >= 5.0 or die("Requires PHP 5.0+");
+
 include 'php/includes/config.php'; // Konfiguration
 include 'php/includes/classes.php'; // Klassen
 include 'php/includes/functions.php'; // Funktionen
